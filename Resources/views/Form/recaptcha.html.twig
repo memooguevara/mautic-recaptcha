@@ -1,0 +1,37 @@
+{{- include([theme|default('') ~ 'text.html.twig', '@MauticForm/Field/text.html.twig'], {
+    'field': field,
+    'fields': fields|default([]),
+    'inForm': inForm|default(false),
+    'type': 'hidden',
+    'id': id,
+    'required': false,
+    'formId': formId|default(0),
+    'formName': formName|default(''),
+}) -}}
+{% set hashedFormName = md5(formName|default('')) %}
+{% set version = field.customParameters.version|default('v2') %}
+{% set siteKey = field.customParameters.site_key %}
+
+{% if version == 'v2' %}
+    <div class="g-recaptcha"
+         data-sitekey="{{ siteKey }}"
+         data-callback="verifyCallback_{{ hashedFormName }}"
+    ></div>
+{% endif %}
+
+<script type="text/javascript">
+  function verifyCallback_{{ hashedFormName }} (response) {
+    document.getElementById("mauticform_input{{ formName|default('') }}_{{ field.alias }}").value = response
+  }
+
+  function onLoad{{ hashedFormName }} () {
+    grecaptcha.execute('{{ siteKey }}', { action: 'form' }).then(function (token) {
+      verifyCallback_{{ hashedFormName }}(token)
+    })
+  }
+</script>
+{% if version == 'v2' %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% else %}
+    <script src='https://www.google.com/recaptcha/api.js?onload=onLoad{{ hashedFormName }}&render={{ siteKey }}'></script>
+{% endif %}

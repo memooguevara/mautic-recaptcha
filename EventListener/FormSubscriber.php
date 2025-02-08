@@ -24,7 +24,7 @@ use MauticPlugin\MauticRecaptchaBundle\Service\RecaptchaClient;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mautic\PluginBundle\Integration\AbstractIntegration;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormSubscriber implements EventSubscriberInterface
 {
@@ -127,12 +127,13 @@ class FormSubscriber implements EventSubscriberInterface
         $event->addFormField('plugin.recaptcha', [
             'label'          => 'mautic.plugin.actions.recaptcha',
             'formType'       => RecaptchaType::class,
-            'template'       => 'MauticRecaptchaBundle:Integration:recaptcha.html.php',
+            'template'       => '@MauticRecaptcha/Form/recaptcha.html.twig',
             'builderOptions' => [
-                'addLeadFieldList' => false,
-                'addIsRequired'    => false,
                 'addDefaultValue'  => false,
+                'addMappedFieldList' => false,
                 'addSaveResult'    => true,
+                'addBehaviorFields' => false,
+                'addIsRequired'    => false,
             ],
             'site_key' => $this->siteKey,
             'version'  => $this->version,
