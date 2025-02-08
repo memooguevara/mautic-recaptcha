@@ -16,11 +16,16 @@ Supports reCaptcha v2 and v3.
 
 Execute `composer require koco/mautic-recaptcha-bundle:3.*` in the main directory of the mautic installation.
 
+### mautic 5
+
+Supports reCaptcha v2 and v3.
+
 ## Installation via .zip
 Download the .zip file, extract it into the `plugins/` directory and rename the new directory to `MauticRecaptchaBundle`.
 
 * Download for mautic 2 (legacy): [mautic-recaptcha-legacy.zip](https://github.com/KonstantinCodes/mautic-recaptcha/archive/1.1.3.zip)
 * Download for mautic 3 & 4: [mautic-recaptcha.zip](https://github.com/KonstantinCodes/mautic-recaptcha/archive/master.zip)
+* Download for mautic 5: [mautic-recaptcha.zip](https://github.com/memooguevara/mautic-recaptcha/archive/master.zip)
 
 Clear the cache via console command `php app/console cache:clear --env=prod` (might take a while) *OR* manually delete the `app/cache/prod` directory.
 
